@@ -1,56 +1,16 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Ultra Cursor Hunter</title>
-  <style>
-    body {
-      background: linear-gradient(to right, #141e30, #243b55);
-      color: white;
-      text-align: center;
-      font-family: Arial;
-    }
-
-    #gameArea {
-      width: 700px;
-      height: 400px;
-      background: rgba(255,255,255,0.1);
-      margin: 20px auto;
-      position: relative;
-      border-radius: 15px;
-      overflow: hidden;
-    }
-
-    .target {
-      width: 40px;
-      height: 40px;
-      background: red;
-      border-radius: 50%;
-      position: absolute;
-      cursor: pointer;
-    }
-
-    button {
-      padding: 10px 20px;
-      background: cyan;
-      border: none;
-      border-radius: 10px;
-      cursor: pointer;
-      font-size: 16px;
-    }
-  </style>
+  <title>Interactive Particle Game</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<h1>⚡ ULTRA CURSOR HUNTER</h1>
-<p>Score: <span id="score">0</span></p>
-<p>Time: <span id="time">30</span></p>
+<h1>Interactive Cursor Constellation</h1>
+<canvas id="canvas"></canvas>
 
-<button onclick="startGame()">Start Game</button>
-
-<div id="gameArea"></div>
-
-
-<script src="./script.js"></script>
+<script src="script.js"></script>
 </body>
 </html>
+
 
