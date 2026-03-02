@@ -1,10 +1,25 @@
 body {
-  margin: 0;
-  overflow: hidden;
-  background: black;
+    margin: 0;
+    height: 100vh;
+    background: linear-gradient(135deg, #1a1a2e, #16213e);
+    overflow: hidden;
+    cursor: crosshair;
+    font-family: Arial, sans-serif;
 }
-canvas {
-  display: block;
+
+.title {
+    position: fixed;
+    top: 10px;
+    width: 100%;
+    text-align: center;
+    color: white;
+}
+
+#dragon {
+    position: absolute;
+    font-size: 60px;
+    transition: transform 0.1s linear;
+    pointer-events: none;
 }
 
 
