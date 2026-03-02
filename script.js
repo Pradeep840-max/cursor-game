@@ -1,81 +1,22 @@
 let score = 0;
-let timeLeft = 30;
-let level = 1;
-let combo = 0;
-let speed = 800;
-let gameInterval;
-let timerInterval;
-
-const target = document.getElementById("target");
-const scoreDisplay = document.getElementById("score");
-const timeDisplay = document.getElementById("time");
-const levelDisplay = document.getElementById("level");
-const comboDisplay = document.getElementById("combo");
-const gameArea = document.getElementById("gameArea");
-const modal = document.getElementById("gameOverModal");
-const finalScore = document.getElementById("finalScore");
-const startBtn = document.getElementById("startBtn");
-
-function randomPosition() {
-    const maxX = gameArea.clientWidth - 60;
-    const maxY = gameArea.clientHeight - 60;
-
-    const randomX = Math.random() * maxX;
-    const randomY = Math.random() * maxY;
-
-    target.style.left = randomX + "px";
-    target.style.top = randomY + "px";
-}
+let time = 30;
+let timer;
 
 function startGame() {
     score = 0;
-    timeLeft = 30;
-    level = 1;
-    combo = 0;
-    speed = 800;
+    time = 30;
 
-    updateUI();
-    modal.style.display = "none";
-    target.style.display = "block";
+    document.getElementById("score").innerText = score;
+    document.getElementById("time").innerText = time;
 
-    gameInterval = setInterval(randomPosition, speed);
+    timer = setInterval(() => {
+        time--;
+        document.getElementById("time").innerText = time;
 
-    timerInterval = setInterval(() => {
-        timeLeft--;
-        updateUI();
-
-        if (timeLeft <= 0) {
-            endGame();
+        if (time <= 0) {
+            clearInterval(timer);
+            alert("Game Over! Your Score: " + score);
         }
     }, 1000);
 }
 
-function updateUI() {
-    scoreDisplay.textContent = score;
-    timeDisplay.textContent = timeLeft;
-    levelDisplay.textContent = level;
-    comboDisplay.textContent = combo;
-}
-
-function endGame() {
-    clearInterval(gameInterval);
-    clearInterval(timerInterval);
-    target.style.display = "none";
-    finalScore.textContent = score;
-    modal.style.display = "flex";
-}
-
-function restartGame() {
-    startGame();
-}
-
-target.addEventListener("click", () => {
-    score += 10;
-    combo++;
-    
-    if (combo % 5 === 0) {
-        level++;
-        speed -= 100;
-        clearInterval(gameInterval);
-        gameInterval = setInterval(randomPosition, speed);
-    }
