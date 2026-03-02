@@ -2,18 +2,97 @@
 <html>
 <head>
   <title>Ultra Cursor Hunter</title>
-  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      background: linear-gradient(to right, #141e30, #243b55);
+      color: white;
+      text-align: center;
+      font-family: Arial;
+    }
+
+    #gameArea {
+      width: 700px;
+      height: 400px;
+      background: rgba(255,255,255,0.1);
+      margin: 20px auto;
+      position: relative;
+      border-radius: 15px;
+      overflow: hidden;
+    }
+
+    .target {
+      width: 40px;
+      height: 40px;
+      background: red;
+      border-radius: 50%;
+      position: absolute;
+      cursor: pointer;
+    }
+
+    button {
+      padding: 10px 20px;
+      background: cyan;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+  </style>
 </head>
 <body>
 
 <h1>⚡ ULTRA CURSOR HUNTER</h1>
-
 <p>Score: <span id="score">0</span></p>
 <p>Time: <span id="time">30</span></p>
 
 <button onclick="startGame()">Start Game</button>
 
-<script src="script.js"></script>
+<div id="gameArea"></div>
 
+<script>
+let score = 0;
+let time = 30;
+let timer;
+
+function startGame() {
+  score = 0;
+  time = 30;
+  document.getElementById("score").innerText = score;
+  document.getElementById("time").innerText = time;
+  document.getElementById("gameArea").innerHTML = "";
+
+  timer = setInterval(() => {
+    time--;
+    document.getElementById("time").innerText = time;
+
+    if (time <= 0) {
+      clearInterval(timer);
+      alert("Game Over! Score: " + score);
+    }
+  }, 1000);
+
+  spawnTarget();
+}
+
+function spawnTarget() {
+  const gameArea = document.getElementById("gameArea");
+
+  const target = document.createElement("div");
+  target.classList.add("target");
+
+  target.style.top = Math.random() * 360 + "px";
+  target.style.left = Math.random() * 660 + "px";
+
+  target.onclick = function() {
+    score++;
+    document.getElementById("score").innerText = score;
+    target.remove();
+    spawnTarget();
+  };
+
+  gameArea.appendChild(target);
+}
+</script>
+<script src="./script.js"></script>
 </body>
 </html>
