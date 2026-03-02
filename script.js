@@ -74,5 +74,5 @@ function drawHead(x, y, angle) {
   ctx.beginPath();
   ctx.moveTo(0, 0);
   ctx.quadraticCurveTo(50, -25, 90, 0);
-  ctx.quadraticCurveTo(50, 25, 0, 0
+  ctx.quadraticCurveTo(50, 25, 0, 0, 0);
 
