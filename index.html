@@ -1,41 +1,96 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>🔥 Ultra Cursor Hunter</title>
-<link rel="stylesheet" href="style.css">
+<title>Ultra Cursor Hunter</title>
+<style>
+body {
+  background: #0f2027;
+  color: white;
+  text-align: center;
+  font-family: Arial;
+}
+
+#gameArea {
+  width: 600px;
+  height: 350px;
+  background: rgba(255,255,255,0.1);
+  margin: 20px auto;
+  position: relative;
+  border-radius: 15px;
+}
+
+.target {
+  width: 40px;
+  height: 40px;
+  background: red;
+  border-radius: 50%;
+  position: absolute;
+  cursor: pointer;
+}
+button {
+  padding: 10px 20px;
+  background: cyan;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+}
+</style>
 </head>
 <body>
 
-<div class="container">
-    <h1>⚡ ULTRA CURSOR HUNTER</h1>
+<h1>⚡ ULTRA CURSOR HUNTER</h1>
+<p>Score: <span id="score">0</span></p>
+<p>Time: <span id="time">30</span></p>
 
-    <div class="stats">
-        <div>Score: <span id="score">0</span></div>
-        <div>Time: <span id="time">30</span>s</div>
-        <div>Level: <span id="level">1</span></div>
-        <div>Combo: <span id="combo">0</span></div>
-    </div>
+<button onclick="startGame()">Start Game</button>
 
-    <button id="startBtn">🚀 Start Game</button>
+<div id="gameArea"></div>
 
-    <div id="gameArea">
-        <div id="target"></div>
-    </div>
-</div>
+<script>
+let score = 0;
+let time = 30;
+let timer;
 
-<!-- Game Over Modal -->
-<div id="gameOverModal" class="modal">
-    <div class="modal-content">
-        <h2>💀 Game Over</h2>
-        <p>Your Score: <span id="finalScore"></span></p>
-        <button onclick="restartGame()">Play Again</button>
-    </div>
-</div>
+function startGame() {
+  score = 0;
+  time = 30;
+  document.getElementById("score").innerText = score;
+  document.getElementById("time").innerText = time;
+  document.getElementById("gameArea").innerHTML = "";
 
-<script src="script.js"></script>
+  timer = setInterval(() => {
+    time--;
+    document.getElementById("time").innerText = time;
+
+    if (time <= 0) {
+      clearInterval(timer);
+      alert("Game Over! Score: " + score);
+    }
+  }, 1000);
+
+  spawnTarget();
+}
+
+function spawnTarget() {
+  const gameArea = document.getElementById("gameArea");
+
+  const target = document.createElement("div");
+  target.classList.add("target");
+
+  target.style.top = Math.random() * 300 + "px";
+  target.style.left = Math.random() * 550 + "px";
+
+  target.onclick = function() {
+    score++;
+    document.getElementById("score").innerText = score;
+    target.remove();
+    spawnTarget();
+  };
+
+  gameArea.appendChild(target);
+}
+</script>
+
 </body>
-
 </html>
 
