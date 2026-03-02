@@ -2,9 +2,6 @@ body {
   margin: 0;
   overflow: hidden;
   background: black;
-  color: white;
-  text-align: center;
-  font-family: Arial;
 }
 
 canvas {
