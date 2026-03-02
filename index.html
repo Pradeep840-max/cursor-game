@@ -2,19 +2,40 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Dragon Follower</title>
+    <title>🔥 Ultra Cursor Hunter</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <h1 class="title">🐉 Dragon Follows Your Mouse</h1>
+<div class="container">
 
-    <!-- Dragon -->
-    <div id="dragon">🐉</div>
+    <h1>⚡ ULTRA CURSOR HUNTER</h1>
 
-    <script src="script.js"></script>
+    <div class="stats">
+        <div>Score: <span id="score">0</span></div>
+        <div>Time: <span id="time">30</span>s</div>
+        <div>Level: <span id="level">1</span></div>
+        <div>Combo: <span id="combo">0</span></div>
+    </div>
+
+    <!-- ✅ START BUTTON — MUST BE HERE -->
+    <button id="startBtn">🚀 Start Game</button>
+
+    <div id="gameArea">
+        <div id="target"></div>
+    </div>
+
+</div>
+
+<!-- Game Over Modal -->
+<div id="gameOverModal" class="modal">
+    <div class="modal-content">
+        <h2>💀 Game Over</h2>
+        <p>Your Score: <span id="finalScore"></span></p>
+        <button onclick="restartGame()">Play Again</button>
+    </div>
+</div>
+
+<script src="script.js"></script>
 </body>
 </html>
-
-
-
