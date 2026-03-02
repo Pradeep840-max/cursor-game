@@ -1,78 +1,57 @@
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
 
-function resize() {
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
-}
-resize();
-window.addEventListener("resize", resize);
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
 
-let mouse = { x: canvas.width / 2, y: canvas.height / 2 };
+let mouse = {
+  x: canvas.width / 2,
+  y: canvas.height / 2
+};
 
-window.addEventListener("mousemove", (e) => {
+window.addEventListener("mousemove", function(e) {
   mouse.x = e.clientX;
   mouse.y = e.clientY;
 });
 
+class Segment {
+  constructor(x, y) {
+    this.x = x;
+    this.y = y;
+  }
+}
+
 let dragon = [];
-let length = 25;
+let length = 40; // dragon body length
 
+// Create dragon body
 for (let i = 0; i < length; i++) {
-  dragon.push({ x: mouse.x, y: mouse.y });
+  dragon.push(new Segment(mouse.x, mouse.y));
 }
 
-let wingTime = 0;
+function animate() {
+  ctx.fillStyle = "rgba(0,0,0,0.3)";
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-function drawWings(x, y, angle, speed) {
-  ctx.save();
-  ctx.translate(x, y);
-  ctx.rotate(angle);
+  // Head follows mouse
+  dragon[0].x += (mouse.x - dragon[0].x) * 0.2;
+  dragon[0].y += (mouse.y - dragon[0].y) * 0.2;
 
-  // Smooth sinusoidal flap
-  wingTime += 0.08 + speed * 0.02;
-  let flap = Math.sin(wingTime) * 40;
+  // Body follows previous segment
+  for (let i = 1; i < dragon.length; i++) {
+    dragon[i].x += (dragon[i - 1].x - dragon[i].x) * 0.3;
+    dragon[i].y += (dragon[i - 1].y - dragon[i].y) * 0.3;
+  }
 
-  ctx.lineWidth = 3;
-  ctx.strokeStyle = "cyan";
-  ctx.shadowBlur = 25;
-  ctx.shadowColor = "cyan";
+  // Draw dragon
+  for (let i = dragon.length - 1; i >= 0; i--) {
+    ctx.beginPath();
+    ctx.arc(dragon[i].x, dragon[i].y, 8 - i * 0.1, 0, Math.PI * 2);
+    ctx.fillStyle = hsl(${i * 10}, 100%, 50%);
+    ctx.fill();
+  }
 
-  // Left Wing
-  ctx.beginPath();
-  ctx.moveTo(-10, 0);
-  ctx.bezierCurveTo(
-    -60, -50 + flap,
-    -120, -50 + flap,
-    -150, 0
-  );
-  ctx.stroke();
-
-  // Right Wing
-  ctx.beginPath();
-  ctx.moveTo(-10, 0);
-  ctx.bezierCurveTo(
-    -60, 50 - flap,
-    -120, 50 - flap,
-    -150, 0
-  );
-  ctx.stroke();
-
-  ctx.restore();
+  requestAnimationFrame(animate);
 }
 
-function drawHead(x, y, angle) {
-  ctx.save();
-  ctx.translate(x, y);
-  ctx.rotate(angle);
-
-  ctx.lineWidth = 3;
-  ctx.strokeStyle = "lime";
-  ctx.shadowBlur = 25;
-  ctx.shadowColor = "lime";
-
-  ctx.beginPath();
-  ctx.moveTo(0, 0);
-  ctx.quadraticCurveTo(50, -25, 90, 0);
-  ctx.quadraticCurveTo(50, 25, 0, 0, 0);
-
+animate();
