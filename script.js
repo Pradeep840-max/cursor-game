@@ -79,7 +79,3 @@ target.addEventListener("click", () => {
         clearInterval(gameInterval);
         gameInterval = setInterval(randomPosition, speed);
     }
-
-    updateUI();
-    randomPosition();
-});
