@@ -49,50 +49,8 @@
 
 <div id="gameArea"></div>
 
-<script>
-let score = 0;
-let time = 30;
-let timer;
 
-function startGame() {
-  score = 0;
-  time = 30;
-  document.getElementById("score").innerText = score;
-  document.getElementById("time").innerText = time;
-  document.getElementById("gameArea").innerHTML = "";
-
-  timer = setInterval(() => {
-    time--;
-    document.getElementById("time").innerText = time;
-
-    if (time <= 0) {
-      clearInterval(timer);
-      alert("Game Over! Score: " + score);
-    }
-  }, 1000);
-
-  spawnTarget();
-}
-
-function spawnTarget() {
-  const gameArea = document.getElementById("gameArea");
-
-  const target = document.createElement("div");
-  target.classList.add("target");
-
-  target.style.top = Math.random() * 360 + "px";
-  target.style.left = Math.random() * 660 + "px";
-
-  target.onclick = function() {
-    score++;
-    document.getElementById("score").innerText = score;
-    target.remove();
-    spawnTarget();
-  };
-
-  gameArea.appendChild(target);
-}
-</script>
 <script src="./script.js"></script>
 </body>
 </html>
+
