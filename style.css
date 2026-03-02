@@ -3,6 +3,10 @@ body {
   overflow: hidden;
   background: black;
 }
+canvas {
+  display: block
+}
+
 
 
 
